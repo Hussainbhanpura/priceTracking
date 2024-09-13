@@ -23,4 +23,5 @@ COPY . .
 ENV PATH="/root/.local/bin:${PATH}"
 
 # Command to start the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=${PORT}"]
+
