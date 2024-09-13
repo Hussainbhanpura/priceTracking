@@ -1,0 +1,8 @@
+selenium
+webdriver_manager
+schedule
+time
+datetime
+pymongo
+requests
+flask
