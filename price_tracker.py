@@ -12,6 +12,7 @@ import requests
 from flask import Flask
 from dotenv import load_dotenv
 import os
+from threading import Thread
 
 # Load environment variables
 load_dotenv()
@@ -127,20 +128,21 @@ def save_results(results, product):
     except Exception as e:
         print(f"Error saving results: {e}")
 
-def run_scraper(driver, product):
+def run_scraper(product):
+    driver = setup_driver()
     results = scrape_google_shopping(driver, product)
     save_results(results, product)
+    driver.quit()
 
-def main():
-    driver = setup_driver()
+def start_scraper():
     print(f"iPhone Price Scraper started. Will run every {SCRAPE_INTERVAL_MINUTES} minutes.")
     
     for product in PRODUCTS:
-        schedule.every(SCRAPE_INTERVAL_MINUTES).minutes.do(run_scraper, driver, product)
+        schedule.every(SCRAPE_INTERVAL_MINUTES).minutes.do(run_scraper, product)
 
     # Run once immediately
     for product in PRODUCTS:
-        run_scraper(driver, product)
+        run_scraper(product)
     
     while True:
         schedule.run_pending()
@@ -148,7 +150,9 @@ def main():
 
 @app.route("/", methods=["GET"])
 def home():
-    main()
+    if not hasattr(app, 'scraper_thread') or not app.scraper_thread.is_alive():
+        app.scraper_thread = Thread(target=start_scraper)
+        app.scraper_thread.start()
     return "Scraper started", 200
 
 if __name__ == "__main__":
