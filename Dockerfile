@@ -20,4 +20,4 @@ COPY . .
 ENV PATH="/root/.local/bin:${PATH}"
 
 # Use the shell form of CMD to correctly expand environment variables
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT}
+CMD uvicorn price_tracker:app --host 0.0.0.0 --port ${PORT}
