@@ -10,7 +10,7 @@ COPY requirements.txt .
 # Update system packages and install pip
 RUN apt-get update && apt-get install -y python3-pip
 
-# Install Python dependencies
+# Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all application files to the working directory
