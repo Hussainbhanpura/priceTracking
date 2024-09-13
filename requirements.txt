@@ -1,8 +1,6 @@
-selenium
-webdriver_manager
-schedule
-time
-datetime
-pymongo
-requests
-flask
+selenium==4.20.0
+webdriver_manager==4.0.0
+schedule==1.2.0
+pymongo==4.6.0
+requests==2.31.0
+flask==2.3.2
