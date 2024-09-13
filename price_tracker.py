@@ -122,6 +122,8 @@ def save_results(results, product):
                     'Price': result[2],
                     'Timestamp': datetime.datetime.now()
                 }
+                message = f"New product added \nCompany : {result[0]}\nProduct : {result[1]}\nPrice : {result[2]}"
+                send_telegram_alert(message)
                 collection.insert_one(document)
 
         print(f"Scraping completed for {product}. Results saved to MongoDB.")
