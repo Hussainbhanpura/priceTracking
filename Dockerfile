@@ -27,7 +27,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Google Chrome
-RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome.deb \
+RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome.deb \
     && apt-get update \
     && apt-get install -y /tmp/google-chrome.deb \
     && rm /tmp/google-chrome.deb
@@ -37,7 +37,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Download and install ChromeDriver
-RUN wget https://chromedriver.storage.googleapis.com/128.0.6613.137/chromedriver_linux64.zip -O /tmp/chromedriver.zip \
+RUN wget -q https://chromedriver.storage.googleapis.com/128.0.6613.137/chromedriver_linux64.zip -O /tmp/chromedriver.zip \
     && unzip /tmp/chromedriver.zip -d /usr/local/bin/ \
     && chmod +x /usr/local/bin/chromedriver \
     && rm /tmp/chromedriver.zip
