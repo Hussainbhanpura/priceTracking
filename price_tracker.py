@@ -50,6 +50,7 @@ def setup_driver():
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.binary_location = "/usr/bin/google-chrome"  # Path to Chrome binary in Docker
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
 

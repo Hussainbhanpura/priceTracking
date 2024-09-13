@@ -24,12 +24,15 @@ RUN apt-get update && apt-get install -y \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libcairo2 \
-    libgdk-pixbuf2.0-0 \
-    libnspr4 \
-    libnss3 \
-    libxkbcommon0 \
     libgdk-pixbuf2.0-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Google Chrome
+RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /tmp/google-chrome.deb \
+    && apt-get update \
+    && apt-get install -y /tmp/google-chrome.deb \
+    && rm /tmp/google-chrome.deb
 
 # Install Python dependencies
 COPY requirements.txt .
