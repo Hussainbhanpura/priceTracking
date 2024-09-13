@@ -19,5 +19,5 @@ COPY . .
 # Set the environment variable for the correct PATH
 ENV PATH="/root/.local/bin:${PATH}"
 
-# Use the shell form of CMD to correctly expand environment variables
-CMD uvicorn price_tracker:app --host 0.0.0.0 --port ${PORT}
+# Use Gunicorn as the WSGI server to serve the Flask app
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "price_tracker:app"]
